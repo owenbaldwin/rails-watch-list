@@ -7,7 +7,9 @@
 
 <ul class="list-group m-2">
   <% @list.bookmarks.each do |bookmark| %>
-    <li class="list-group-item"><%= bookmark.movie %> --- <%= bookmark.comment %></li>
+    <%# <% @movie = Movie.find(params[:bookmark][:movie]) %>
+    <%# <% @bookmark.movie = @movie %>
+    <li class="list-group-item"><%= @bookmark.movie %> --- <%= bookmark.comment %></li>
 
 
   <% end %>
@@ -15,3 +17,7 @@
 
 <%= link_to 'Back', lists_path, class: "btn btn-primary m-2" %>
 <%= link_to 'Create a bookmark', new_list_bookmark_path(@list), class: "btn btn-secondary m-2" %>
+
+
+<%# Movie.find(params[:bookmark][:movie]) %>
+<%# MAKE MOVIE ADDED FROM BOOKMARK SHOW IN LIST %>
