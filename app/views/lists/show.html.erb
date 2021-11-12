@@ -1,23 +1,30 @@
-<div class="cards">
-  <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/breakfast.jpg)">
-    <h3><%= @list.name %></h3>
 
+
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/background.png);">
+  <div class="container">
+    <h1><%= @list.name %></h1>
   </div>
 </div>
 
-<ul class="list-group m-2">
-  <% @list.bookmarks.each do |bookmark| %>
-    <%# <% @movie = Movie.find(params[:bookmark][:movie]) %>
-    <%# <% @bookmark.movie = @movie %>
-    <li class="list-group-item"><%= @bookmark.movie %> --- <%= bookmark.comment %></li>
-
-
-  <% end %>
-</ul>
-
+<div class="d-flex justify-content-center">
 <%= link_to 'Back', lists_path, class: "btn btn-primary m-2" %>
 <%= link_to 'Create a bookmark', new_list_bookmark_path(@list), class: "btn btn-secondary m-2" %>
+</div>
 
-
-<%# Movie.find(params[:bookmark][:movie]) %>
-<%# MAKE MOVIE ADDED FROM BOOKMARK SHOW IN LIST %>
+<div class="d-flex justify-content-around">
+  <% @list.movies.each do |movie| %>
+  <div class="card-trip">
+    <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
+      <%= image_tag movie.poster_url, alt: movie.title, class: "movie-img rounded-top" %>
+      <div class="card-trip-infos">
+        <div>
+          <strong><%= movie.title %> <span class="text-muted font-weight-normal">• <%= movie.rating %> <i class="fas fa-star star-yellow"></i></span></strong>
+          <small class="text-muted"><%= movie.overview %></small>
+        </div>
+        <i class="fas fa-quote-left mr-2"></i><small class="flex-grow-1"><%= bookmark.comment %></small>
+        <%# <small class="text-right flex-shrink-0"><%= link_to "delete", bookmark_path(bookmark), method: :delete, data: { confirm: "Are you sure you want to remove #{movie.title} from your #{@list.name} list"}, class: 'text-danger'</small> %> %>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>
